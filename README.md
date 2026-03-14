@@ -10,10 +10,10 @@ The setup works without modifying the console, and also makes it possible to rec
 
 - [Firmware patching guide](#firmware-patching-guide)
 - [EDID emulator option](#edid-emulator-option)
+- [Hardware connection](#hardware-connection)
 - [ShaderGlass setup](#shaderglass-setup)
 - [3DToElse_NTM3D details](#3dtoelse_ntm3d-details)
 - [NTM3D EDID details](#ntm3d-edid-details)
-- [Hardware connection](#hardware-connection)
 - [Record using OBS](#record-using-obs)
 - [3D TV size settings](#3d-tv-size-settings)
 - [Demo videos](#demo-videos)
@@ -28,9 +28,9 @@ The setup works without modifying the console, and also makes it possible to rec
 
 ### Download ms213x_flash
 
-Download the capture card firmware tool from [steve-m/ms213x_flash](https://github.com/steve-m/ms213x_flash).
+Download the MS213x/MS213xS firmware flasher from [steve-m/ms213x_flash](https://github.com/steve-m/ms213x_flash).
 
-### 1. Backup your capture card firmware
+### 1. Backup your firmware
 Run:
 ```
 ms213x_flash.exe
@@ -40,20 +40,33 @@ This will create a backup of your capture card’s firmware (e.g. `backup.bin`).
 ### 2. Patch firmware using MS2130_edid_patcher.py
 Run:
 ```
-python3 MS2130_edid_patcher.py backup.bin NTM3D_edid.bin NTM3D_patched.bin
+python3 MS2130_edid_patcher.py backup.bin NTM3D_edid.bin backup_patched.bin
 ```
 `backup.bin` is the firmware you just dumped.  
 `NTM3D_edid.bin` is included in the repo.
+`backup_patched.bin` is the new firmware with the custom EDID.
 
 ### 3. Flash the patched firmware
 Flash the patched firmware:
 ```
-ms213x_flash.exe -w NTM3D_patched.bin
+ms213x_flash.exe -w backup_patched.bin
 ```
 
 ### Option: Use the premade firmware file
 You can also use the premade firmware file `NTM3D_firmware.bin` provided in this repository.  
-This file is based on the firmware from [this comment](https://github.com/awawa-dev/HyperHDR/discussions/499?sort=new#discussioncomment-15833082) that is itself based on the original from [awawa-dev/HyperHDR/discussions/729](https://github.com/awawa-dev/HyperHDR/discussions/729), with the EDID `NTM3D_edid.bin` patched in.
+This file is based on the firmware from [this comment](https://github.com/awawa-dev/HyperHDR/discussions/499?sort=new#discussioncomment-15833082) that is itself based on the original from [awawa-dev/HyperHDR/discussions/729](https://github.com/awawa-dev/HyperHDR/discussions/729) but with the EDID `NTM3D_edid.bin` patched in.
+
+So it includes all fixes from HyperHDR and has the sharpening filter disabled:
+>Changelog:
+> * fixed issue with very dark captured video
+> * fixed issue when video source uses limited YUV color space
+> * add missing modes e.g. 1080p24, 1080p120... reported to the display
+> * ms2130 now reports HDR support
+> * ms2130 now reports LLDV support
+>
+>Latency test:
+> * 1080p60 => ~66ms
+> * 1080p120 => ~49ms
 
 **Always read the linked threads for compatibility and risk information before flashing.**
 
@@ -61,10 +74,24 @@ This file is based on the firmware from [this comment](https://github.com/awawa-
 
 ## EDID emulator option
 
-Using an EDID emulator like this, you can overwrite the EDID using ToastyX’s [EDID/DisplayID Writer tool](https://www.monitortests.com/forum/Thread-EDID-DisplayID-Writer).  
-Flash `NTM3D_edid.bin`.
+If you already have a capture card and want to use that. You can use an external EDID emulator instead to trick the console to output 3D.
+Using an cheap EDID emulator, you can overwrite the EDID that it comes with using ToastyX’s [EDID/DisplayID Writer tool](https://www.monitortests.com/forum/Thread-EDID-DisplayID-Writer).
 
-<img src="Images/EDID_emulator.png" width="200">
+Flash `NTM3D_edid.bin` to advertise the same features as when using the firmware above.
+
+---
+
+## Hardware connection
+
+**MS2130 capture card setup:**
+```
+PS3/PS4/Xbox 360 etc → HDMI splitter → MS2130 capture card
+```
+
+**EDID emulator setup:**
+```
+PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
+```
 
 ---
 
@@ -85,10 +112,9 @@ Flash `NTM3D_edid.bin`.
 
 ## 3DToElse_NTM3D details
 
-The modifications comprise support for frame packed input format. It will remove the blanking line and correctly scale each eye.
+The modifications comprise of support for frame packed input and half/full input and output for SBS (Side-by-Side) and TaB (Top-and-Bottom). However, keep in mind that ReShade cannot change the display aspect ratio, so the support uses letter and pillar boxes.
 
-I also added support for half/full input and output for SBS (Side-by-Side) and TaB (Top-and-Bottom).  
-However, keep in mind that ReShade cannot change the display aspect ratio, so the support uses letter and pillar boxes.
+The frame packed input format differ from TaB input in that it will remove the blanking line and correctly scale each eye to compensate for the removed lines.
 
 ---
 
@@ -97,20 +123,6 @@ However, keep in mind that ReShade cannot change the display aspect ratio, so th
 `NTM3D_edid.bin` is based on the EDID from the HyperHDR firmware, with the 3D parts extracted from my LG 65UF852V. Some settings were adjusted to better suit the use of 3D.
 
 If you want to inspect the EDID, make changes, or create your own, I can recommend [AW EDID Editor](https://www.analogway.com/products/aw-edid-editor).
-
----
-
-## Hardware connection
-
-**MS2130 capture card setup:**
-```
-PS3/PS4/Xbox 360 etc → HDMI splitter → MS2130 capture card
-```
-
-**EDID emulator setup:**
-```
-PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
-```
 
 ---
 
@@ -191,10 +203,13 @@ Feel free to experiment with the TV size setting on the PS3. In my limited testi
 
 ## Hardware examples
 
-Example MS2130-based capture card:  
+MS2130-based capture card:  
 <img src="Images/BENFEI_MS2130.jpg" width="200">
 
-Example of HDMI splitter that will strip HDCP:  
+EDID emulator:  
+<img src="Images/EDID_emulator.png" width="200">
+
+HDMI splitter that will strip HDCP:  
 <img src="Images/HDMI_splitter.png" width="200">
 
 ---
