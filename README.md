@@ -43,7 +43,7 @@ Run:
 python3 MS2130_edid_patcher.py backup.bin NTM3D_edid.bin backup_patched.bin
 ```
 `backup.bin` is the firmware you just dumped.  
-`NTM3D_edid.bin` is included in the repo.
+`NTM3D_edid.bin` is included in the repo. But you can use any 256 byte EDID.  
 `backup_patched.bin` is the new firmware with the custom EDID.
 
 ### 3. Flash the patched firmware
@@ -56,7 +56,7 @@ ms213x_flash.exe -w backup_patched.bin
 You can also use the premade firmware file `NTM3D_firmware.bin` provided in this repository.  
 This file is based on the firmware from [this comment](https://github.com/awawa-dev/HyperHDR/discussions/499?sort=new#discussioncomment-15833082) that is itself based on the original from [awawa-dev/HyperHDR/discussions/729](https://github.com/awawa-dev/HyperHDR/discussions/729) but with the EDID `NTM3D_edid.bin` patched in.
 
-So it includes all fixes from HyperHDR and has the sharpening filter disabled:
+So it includes all fixes from HyperHDR and has the sharpening filter disabled. Read the linked threads for more information.
 >Changelog:
 > * fixed issue with very dark captured video
 > * fixed issue when video source uses limited YUV color space
@@ -67,8 +67,6 @@ So it includes all fixes from HyperHDR and has the sharpening filter disabled:
 >Latency test:
 > * 1080p60 => ~66ms
 > * 1080p120 => ~49ms
-
-**Always read the linked threads for compatibility and risk information before flashing.**
 
 ---
 
