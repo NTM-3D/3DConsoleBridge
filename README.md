@@ -100,11 +100,16 @@ PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
 
 2. Add [`3DToElse_NTM3D.fx`](3DToElse_NTM3D.fx) from this repo to your ShaderGlass shader folder.
 
-3. Set Input format to Frame Packing. If need change the blanking lines slider to correctly cut out the blanking lines.
+3. Disable 3dGameBridge with CTRl + 2.
 
-4. Set output format to Half SBS.
+4. Set the input format to Frame Packing. If needed you can change the blanking lines slider to correctly cut out the blanking lines.
 
-5. Enable 3DGameBridge to weave the now Half SBS image into 3D.
+5. Set output format to Half and SBS.
+
+6. Enable 3DGameBridge with CTRL + 2 to weave the now Half SBS image into 3D.
+
+Video guide:  
+<a href="https://www.youtube.com/watch?v=W-NKOTkz-fk"><img src="https://img.youtube.com/vi/W-NKOTkz-fk/0.jpg" width="240">
 
 ---
 
