@@ -1,6 +1,8 @@
 # 3DConsoleBridge
 
-3DConsoleBridge lets you play native 3D console games (PS3, PS4, Xbox 360) on modern glasses-free 3D displays. Using off-the-shelf hardware and open tools, it converts 3D HDMI output for new screens, without modifying the console.
+3DConsoleBridge is a project that lets you play native 3D console games (from PS3, PS4, Xbox 360, etc.) on modern glasses-free 3D displays. It uses affordable off-the-shelf hardware and a chain of open software tools to capture the 3D HDMI output from consoles, process it, and make it compatible with glasses-free 3D screens.
+
+The setup works without modifying the console, and also makes it possible to record or stream gameplay using standard software like OBS.
 
 ---
 
@@ -13,8 +15,8 @@
 - [NTM3D EDID details](#ntm3d-edid-details)
 - [Hardware connection](#hardware-connection)
 - [Record using OBS](#record-using-obs)
-- [Demo videos](#demo-videos)
 - [3D TV size settings](#3d-tv-size-settings)
+- [Demo videos](#demo-videos)
 - [Hardware examples](#hardware-examples)
 - [Credits](#credits)
 
@@ -24,7 +26,7 @@
 
 > **⚠️ Warning:** Flashing any firmware is at your own risk. Make backups and verify hardware compatibility before proceeding!
 
-### 0. Download ms213x_flash
+### Download ms213x_flash
 
 Download the capture card firmware tool from [steve-m/ms213x_flash](https://github.com/steve-m/ms213x_flash).
 
@@ -62,7 +64,7 @@ This file is based on the firmware from [this comment](https://github.com/awawa-
 Using an EDID emulator like this, you can overwrite the EDID using ToastyX’s [EDID/DisplayID Writer tool](https://www.monitortests.com/forum/Thread-EDID-DisplayID-Writer).  
 Flash `NTM3D_edid.bin`.
 
-![EDID Emulator](Images/EDID_emulator.png)
+<img src="Images/EDID_emulator.png" width="200">
 
 ---
 
@@ -73,7 +75,11 @@ Flash `NTM3D_edid.bin`.
 
 2. Add [`3DToElse_NTM3D.fx`](3DToElse_NTM3D.fx) from this repo to your ShaderGlass shader folder.
 
-3. *(Insert video showing how to setup ReShade settings)*
+3. Set Input format to Frame Packing. If need change the blanking lines slider to correctly cut out the blanking lines.
+
+4. Set output format to Half SBS.
+
+5. Enable 3DGameBridge to weave the now Half SBS image into 3D.
 
 ---
 
@@ -114,26 +120,19 @@ To record or stream gameplay, start an additional ShaderGlass instance *without*
 Capture the output window of ShaderGlass using OBS.
 
 1. **Enable multiple apps to use the camera:**  
-   On Windows 11, you must enable multiple applications to access your capture card/camera device so you can start two instances of ShaderGlass.  
-   See guide: [Enable or Disable Multiple Apps to Use Camera in Windows 11](https://www.elevenforum.com/t/enable-or-disable-multiple-apps-to-use-camera-in-windows-11.31199/)
+   On Windows 11, you must enable multiple applications to access your capture card/camera device so you can start two instances of ShaderGlass. See guide: [Enable or Disable Multiple Apps to Use Camera in Windows 11](https://www.elevenforum.com/t/enable-or-disable-multiple-apps-to-use-camera-in-windows-11.31199/)
 
 2. **Use Game Capture in OBS:**  
    To ensure that ReShade shader effects are captured correctly, select **Game Capture** mode in OBS when grabbing the ShaderGlass window.
 
 ---
 
-## Demo videos
-
-YouTube demo video here (embed or link):
-
-- *Placeholder for video 1*
-- *Placeholder for video 2*
-
----
-
 ## 3D TV size settings
 
 `NTM3D_edid.bin` presents as a 24 inch TV. This was chosen to match the original PS3 3D display size, the screen most developers probably made sure their games looked correct on. The PS3, and likely other consoles, use the TV screen size EDID value to scale 3D depth.
+If you always thought that the 3D was weak on the PS3 you probably had this set to the "correct" size for your TV.
+
+Please watch the God of War: Chains of Olympus video below as an example of strong 3D depth, it was played using 17 inches.
 
 The following images show the difference between selecting 17 inch, 27 inch, and 47 inch respectively. No other settings have been changed.
 
@@ -141,27 +140,62 @@ The following images show the difference between selecting 17 inch, 27 inch, and
 
 - **17 inch:**  
   ![17 Inch Freeview](Images/17inch_freeview.jpg)  
-  [HSBS version](Images/17inch_hsbs.jpg)
+  [HSBS version](Images/17inch_HSBS.png)
 
 - **27 inch:**  
   ![27 Inch Freeview](Images/27inch_freeview.jpg)  
-  [HSBS version](Images/27inch_hsbs.jpg)
+  [HSBS version](Images/27inch_HSBS.png)
 
 - **47 inch:**  
   ![47 Inch Freeview](Images/47inch_freeview.jpg)  
-  [HSBS version](Images/47inch_hsbs.jpg)
+  [HSBS version](Images/47inch_HSBS.png)
 
 Feel free to experiment with the TV size setting on the PS3. In my limited testing, going lower than around 17 inches can start introducing visual glitches or bugs.
+
+---
+
+## Demo videos
+
+<table>
+  <tr>
+    <td>
+      <b>Xbox 360 - Halo Anniversary</b><br>
+      <a href="https://www.youtube.com/watch?v=l8bQE9-gguo">
+        <img src="https://img.youtube.com/vi/l8bQE9-gguo/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>PS3 - Uncharted 3</b><br>
+      <a href="https://www.youtube.com/watch?v=It2Peu-Q7K8">
+        <img src="https://img.youtube.com/vi/It2Peu-Q7K8/0.jpg" width="240">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>PS3 - God of War: Chains of Olympus</b><br>
+      <a href="https://www.youtube.com/watch?v=xAMcjXU_OB0">
+        <img src="https://img.youtube.com/vi/xAMcjXU_OB0/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>PS4 - Zombie Army Trilogy</b><br>
+      <a href="https://www.youtube.com/watch?v=urB5LrObXTU">
+        <img src="https://img.youtube.com/vi/urB5LrObXTU/0.jpg" width="240">
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## Hardware examples
 
 Example MS2130-based capture card:  
-![MS2130 Capture Card Example](Images/BENFEI_MS2130.jpg)
+<img src="Images/BENFEI_MS2130.jpg" width="200">
 
-Example of a cheap HDMI splitter that will strip HDCP:  
-![HDMI Splitter](Images/HDMI_splitter.png)
+Example of HDMI splitter that will strip HDCP:  
+<img src="Images/HDMI_splitter.png" width="200">
 
 ---
 
