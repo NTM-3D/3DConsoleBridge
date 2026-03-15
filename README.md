@@ -100,7 +100,7 @@ PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
 
 2. Add [`3DToElse_NTM3D.fx`](3DToElse_NTM3D.fx) from this repo to your ShaderGlass shader folder.
 
-3. Disable 3dGameBridge with CTRl + 2.
+3. Disable 3dGameBridge with CTRL + 2. (Just to make it easier to read the settings menu)
 
 4. Set the input format to Frame Packing. If needed you can change the blanking lines slider to correctly cut out the blanking lines.
 
