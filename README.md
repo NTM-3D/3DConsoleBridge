@@ -107,6 +107,8 @@ PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
 5. Set output format to Half and SBS.
 
 6. Enable 3DGameBridge with CTRL + 2 to weave the now Half SBS image into 3D.
+   
+7. You can toggle the 3DToElse_NTM3D 3D transformation on/off with key 1.  
 
 Video guide:  
 <a href="https://www.youtube.com/watch?v=kXILnaeH6N4"><img src="https://img.youtube.com/vi/kXILnaeH6N4/0.jpg" width="240">
