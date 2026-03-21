@@ -112,6 +112,9 @@ uniform bool Eye_Swap <
 	ui_category = "Stereoscopic Options";
 > = true;
 
+// 3D toggle — hidden from UI.
+uniform bool _3D_Toggle < source = "key"; keycode = 49; mode = "toggle"; > = true;
+
 /////////////////////////////////////////////D3D Starts Here/////////////////////////////////////////////////////////////////
 #define pix float2(BUFFER_RCP_WIDTH, BUFFER_RCP_HEIGHT)
 #define TextureSize float2(BUFFER_WIDTH, BUFFER_HEIGHT)
@@ -549,6 +552,9 @@ void Past_BackBuffer(float4 position : SV_Position, float2 texcoord : TEXCOORD, 
 ////////////////////////////////////////////////////////Fin/////////////////////////////////////////////////////////////////////////
 float4 Out(float4 position : SV_Position, float2 texcoord : TEXCOORD) : SV_Target
 {
+	bool enabled = _3D_Toggle;
+	if (enabled)
+		return BB_Texture(texcoord);
 	float3 Color = Stereoscopic_Mode_Input == 0 ? BB_Texture(texcoord).rgb : toElse(texcoord).rgb;
 	return float4(Color,1.);
 }
