@@ -173,32 +173,104 @@ Feel free to experiment with the TV size setting on the PS3. In my limited testi
 
 ## Demo videos
 
+### Xbox 360
 <table>
   <tr>
     <td>
-      <b>Xbox 360 - Halo Anniversary</b><br>
+      <b>Halo Anniversary</b><br>
       <a href="https://www.youtube.com/watch?v=l8bQE9-gguo">
         <img src="https://img.youtube.com/vi/l8bQE9-gguo/0.jpg" width="240">
       </a>
     </td>
+  </tr>
+</table>
+
+---
+
+### PS3
+<table>
+  <tr>
     <td>
-      <b>PS3 - Uncharted 3</b><br>
+      <b>Uncharted 3</b><br>
       <a href="https://www.youtube.com/watch?v=It2Peu-Q7K8">
         <img src="https://img.youtube.com/vi/It2Peu-Q7K8/0.jpg" width="240">
       </a>
     </td>
-  </tr>
-  <tr>
     <td>
-      <b>PS3 - God of War: Chains of Olympus</b><br>
+      <b>God of War: Chains of Olympus</b><br>
       <a href="https://www.youtube.com/watch?v=xAMcjXU_OB0">
         <img src="https://img.youtube.com/vi/xAMcjXU_OB0/0.jpg" width="240">
       </a>
     </td>
+  </tr>
+</table>
+
+---
+
+### PS4
+<table>
+  <tr>
     <td>
-      <b>PS4 - Zombie Army Trilogy</b><br>
+      <b>Sniper Elite 3</b><br>
+      <a href="https://youtu.be/QWE5edPFfxs">
+        <img src="https://img.youtube.com/vi/QWE5edPFfxs/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Sniper Elite 4</b><br>
+      <a href="https://youtu.be/2uSgk88DkMA">
+        <img src="https://img.youtube.com/vi/2uSgk88DkMA/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Zombie Army Trilogy</b><br>
       <a href="https://www.youtube.com/watch?v=urB5LrObXTU">
         <img src="https://img.youtube.com/vi/urB5LrObXTU/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>CastleStorm</b><br>
+      <a href="https://youtu.be/GCA31Vt5NrY">
+        <img src="https://img.youtube.com/vi/GCA31Vt5NrY/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Rocketbirds 2: Evolution</b><br>
+      <a href="https://youtu.be/_T1hZoRtauk">
+        <img src="https://img.youtube.com/vi/_T1hZoRtauk/0.jpg" width="240">
+      </a>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <b>Super Startdust Ultra</b><br>
+      <a href="https://youtu.be/cJP8-uVn25Q">
+        <img src="https://img.youtube.com/vi/cJP8-uVn25Q/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Bound</b><br>
+      <a href="https://youtu.be/L1L6WFZeQXM">
+        <img src="https://img.youtube.com/vi/L1L6WFZeQXM/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Trine 1</b><br>
+      <a href="https://youtu.be/SZzJ8aL_8Xg">
+        <img src="https://img.youtube.com/vi/SZzJ8aL_8Xg/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Trine 2</b><br>
+      <a href="https://youtu.be/WxPMwBdvEy8">
+        <img src="https://img.youtube.com/vi/WxPMwBdvEy8/0.jpg" width="240">
+      </a>
+    </td>
+    <td>
+      <b>Trine 3</b><br>
+      <a href="https://youtu.be/MzyVPAE1heM">
+        <img src="https://img.youtube.com/vi/MzyVPAE1heM/0.jpg" width="240">
       </a>
     </td>
   </tr>
