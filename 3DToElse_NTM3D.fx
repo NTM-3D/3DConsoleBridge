@@ -55,14 +55,34 @@ uniform int Stereoscopic_Mode_Input <
 	ui_category = "Stereoscopic Conversion";
 > = 0;
 
-uniform int FP_Blanking_Lines <
+uniform int FP_Top_Eye_Lines <
 	ui_type = "drag";
-	ui_min = 1; ui_max = 90;
-	ui_label = "Frame Packing Blanking Lines";
-	ui_tooltip = "Number of blanking lines between the two eyes in Frame Packing format.\n"
-	             "Common values: 45 for 1080p (2205 total), 30 for 720p (1470 total).";
-	ui_category = "Stereoscopic Conversion";
-> = 45;
+	ui_min = 1; ui_max = 2160;
+	ui_label = "Top Eye Lines";
+	ui_tooltip = "Number of lines in the top (left) eye for Frame Packing input.\n"
+	             "If top and bottom differ, the smaller height is used for both eyes to keep vertical geometry aligned.\n";
+	ui_category = "Frame Packing Input";
+> = 1058;
+
+uniform int FP_Bottom_Eye_Lines <
+	ui_type = "drag";
+	ui_min = 1; ui_max = 2160;
+	ui_label = "Bottom Eye Lines";
+	ui_tooltip = "Number of lines in the bottom (right) eye for Frame Packing input.\n"
+	             "If top and bottom differ, the smaller height is used for both eyes to keep vertical geometry aligned.\n";
+	ui_category = "Frame Packing Input";
+> = 1056;
+
+uniform float FP_Eye_Align <
+	ui_type = "drag";
+	ui_min = -10.0; ui_max = 10.0;
+	ui_step = 0.01;
+	ui_label = "Eye Vertical Alignment";
+	ui_tooltip = "Shifts the right eye sampling start by this many source rows (fractional allowed).\n"
+	             "Use negative values when the right eye appears higher than the left.\n"
+	             "Does not affect vertical scale.\n";
+	ui_category = "Frame Packing Input";
+> = -2.0;
 
 uniform int Stereoscopic_Mode <
 	ui_type = "combo";
@@ -289,20 +309,27 @@ float4 Left, Right;
 	}
 	else if(Stereoscopic_Mode_Input == 6) //Frame Packing
 	{
-		// Real-world video scaling or compression blurs the black blanking area into the adjacent image edges.
-		// Standard Frame Packing (1080p with 45 blanking, or 720p with 30 blanking) universally follows a 24:1:24 ratio.
-		// This means the exact optical centers of each eye are ALWAYS at exactly 12/49 and 37/49 of the total source image.
-		float leftCenterY  = 12.0 / 49.0 + 2.0 * pix.y;
-		float rightCenterY = 37.0 / 49.0 + 2.0 * pix.y;
-		
-		// The slider calculates the "window height" to sample. 
-		// By increasing FP_Blanking_Lines (e.g., from 45 to 48), the window shrinks, effectively cropping the dark polluted edges.
-		// Because we remap scaling from the fixed optical centers, the eyes will correctly crop the line.
-		float windowHeight = (float(BUFFER_HEIGHT) - float(FP_Blanking_Lines)) / (float(BUFFER_HEIGHT) * 2.0);
+		// Frame-packing extraction using explicit eye heights.
+		float totalLines = float(BUFFER_HEIGHT);
+		float topLines = clamp(float(FP_Top_Eye_Lines), 1.0, totalLines - 1.0);
+		float bottomLines = clamp(float(FP_Bottom_Eye_Lines), 1.0, totalLines - 1.0);
+		float bottomStart = totalLines - bottomLines;
 
-		// Remap texcoord.y (0 to 1) around the true optical centers.
-		float leftY  = leftCenterY  + (texcoord.y - 0.5) * windowHeight;
-		float rightY = rightCenterY + (texcoord.y - 0.5) * windowHeight;
+		float leftUsable = topLines;
+		float rightUsable = bottomLines;
+		float sharedUsable = max(1.0, min(leftUsable, rightUsable));
+
+		// Sample at pixel centers to avoid pulling in blanking edges.
+		// FP_Eye_Align shifts the right eye's start row to compensate for vertical misalignment.
+		// Both eyes use the same vertical sample span to prevent geometric distortion.
+		// Clamp right eye to avoid sampling into blanking when applying alignment.
+		float leftLine = texcoord.y * max(1.0, sharedUsable - 1.0);
+		float rightLineBase = bottomStart;
+		float rightLine = rightLineBase + FP_Eye_Align + texcoord.y * max(1.0, sharedUsable - 1.0);
+		rightLine = clamp(rightLine, rightLineBase, totalLines - 1.0);
+
+		float leftY = (leftLine + 0.5) / totalLines;
+		float rightY = (rightLine + 0.5) / totalLines;
 
 		Left  = BB_Texture(float2(texcoord.x + P, leftY));
 		Right = BB_Texture(float2(texcoord.x - P, rightY));
@@ -553,7 +580,7 @@ void Past_BackBuffer(float4 position : SV_Position, float2 texcoord : TEXCOORD, 
 float4 Out(float4 position : SV_Position, float2 texcoord : TEXCOORD) : SV_Target
 {
 	bool enabled = _3D_Toggle;
-	if (enabled)
+	if (!enabled)
 		return BB_Texture(texcoord);
 	float3 Color = Stereoscopic_Mode_Input == 0 ? BB_Texture(texcoord).rgb : toElse(texcoord).rgb;
 	return float4(Color,1.);
