@@ -108,7 +108,7 @@ PS3/PS4/Xbox 360 etc → HDMI splitter → EDID emulator → Your capture card
 
 6. Enable 3DGameBridge with CTRL + 2 to weave the now Half SBS image into 3D.
    
-7. You can toggle the 3DToElse_NTM3D 3D transformation on/off with key 1.  
+7. You can toggle the 3DToElse_NTM3D 3D transformation on/off with key 1. (Only works with performance mode disabled)  
 
 Video guide:  
 <a href="https://www.youtube.com/watch?v=kXILnaeH6N4"><img src="https://img.youtube.com/vi/kXILnaeH6N4/0.jpg" width="240">
@@ -117,7 +117,7 @@ Video guide:
 
 ## 3DToElse_NTM3D details
 
-The modifications comprise of support for frame packed input and half/full input and output for SBS (Side-by-Side) and TaB (Top-and-Bottom). However, keep in mind that ReShade cannot change the display aspect ratio, so the support uses letter and pillar boxes.
+The modifications comprise of support for frame packed input and half/full input and output for SBS (Side-by-Side) and TaB (Top-and-Bottom). However, keep in mind that ReShade cannot change the display aspect ratio, so the full SBS/TaB support uses letter and pillar boxes.
 
 The frame packed input format differ from TaB input in that it will remove the blanking line and correctly scale each eye to compensate for the removed lines.
 
