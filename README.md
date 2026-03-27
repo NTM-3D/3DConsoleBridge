@@ -37,10 +37,10 @@ ms213x_flash.exe
 ```
 This will create a backup of your capture card’s firmware (e.g. `backup.bin`).
 
-### 2. Patch firmware using MS2130_edid_patcher.py
+### 2. Patch firmware using MS213x_edid_patcher.py
 Run:
 ```
-python3 MS2130_edid_patcher.py backup.bin NTM3D_edid.bin backup_patched.bin
+python3 MS213x_edid_patcher.py backup.bin NTM3D_edid.bin backup_patched.bin
 ```
 `backup.bin` is the firmware you just dumped.  
 `NTM3D_edid.bin` is included in the repo. But you can use any 256 byte EDID.  
@@ -53,7 +53,7 @@ ms213x_flash.exe -w backup_patched.bin
 ```
 
 ### Option: Use the premade firmware file
-You can also use the premade firmware file `NTM3D_firmware.bin` provided in this repository.  
+You can also use the premade firmware file `NTM3D_firmware.bin` provided in this repository to patch your MS2130, do not patch a MS2130S with this file!  
 This file is based on the firmware from [this comment](https://github.com/awawa-dev/HyperHDR/discussions/499?sort=new#discussioncomment-15833082) that is itself based on the original from [awawa-dev/HyperHDR/discussions/729](https://github.com/awawa-dev/HyperHDR/discussions/729) but with the EDID `NTM3D_edid.bin` patched in.
 
 So it includes all fixes from HyperHDR and has the sharpening filter disabled. Read the linked threads for more information.
@@ -80,6 +80,11 @@ Flash `NTM3D_edid.bin` to advertise the same features as when using the firmware
 ---
 
 ## Hardware connection
+
+**MS2130S capture card setup:**
+```
+PS3/PS4/Xbox 360 etc → MS2130S capture card
+```
 
 **MS2130 capture card setup:**
 ```
