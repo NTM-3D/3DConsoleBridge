@@ -130,7 +130,9 @@ The frame packed input format differ from TaB input in that it will remove the b
 
 ## NTM3D EDID details
 
-`NTM3D_edid.bin` is based on the EDID from the HyperHDR firmware, with the 3D parts extracted from my LG 65UF852V. Some settings were adjusted to better suit the use of 3D.
+`NTM3D_edid.bin` is based on the EDID from the HyperHDR firmware, with the 3D parts extracted from my LG 65UF852V. Some settings were adjusted to better suit the use of 3D.  
+
+Also made it so it identifies as an Acer Passive 3D display to the 3D Vision driver, making it output interlaced 3D Vision that can be transformed into half SBS using [3DVision4All](https://github.com/oneup03/3DVision4All).
 
 If you want to inspect the EDID, make changes, or create your own, I can recommend [AW EDID Editor](https://www.analogway.com/products/aw-edid-editor).
 
